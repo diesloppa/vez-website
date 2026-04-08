@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Закрытый Видеоархив</title>
+<style>
+:root {
+  --bg:     #111;
+  --bg2:    #1a1a1a;
+  --bg3:    #242424;
+  --bg4:    #2e2e2e;
+  --border: #2e2e2e;
+  --text:   #e0e0e0;
+  --muted:  #777;
+  --accent: #4a9eff;
+  --r: 7px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       background: var(--bg); color: var(--text); min-height: 100vh; }
+body.locked {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, rgba(74,158,255,.2), transparent 35%),
+    linear-gradient(180deg, #0f0f10 0%, #151517 100%);
+}
+#app-shell[hidden] { display: none !important; }
+
+.unlock-screen {
+  width: min(100%, 430px);
+}
+.unlock-card {
+  background: rgba(26,26,26,.96);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+.unlock-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.unlock-sub {
+  color: #9c9c9c;
+  font-size: .92rem;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.unlock-form {
+  display: grid;
+  gap: 12px;
+}
+.unlock-input {
+  width: 100%;
+  padding: 12px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+.unlock-input:focus {
+  border-color: var(--accent);
+}
+.unlock-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.unlock-btn[disabled] {
+  opacity: .7;
+  cursor: wait;
+}
+.unlock-status {
+  min-height: 1.2em;
+  margin-top: 12px;
+  font-size: .84rem;
+  color: #9c9c9c;
+}
+.unlock-status.error {
+  color: #ff8a8a;
+}
+.unlock-status.ok {
+  color: #8ee08e;
+}
+
+/* ── Topbar ── */
+.topbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 30;
+}
+.logo { font-weight: 700; font-size: .95rem; white-space: nowrap; margin-right: 4px; }
+.logo em { color: var(--accent); font-style: normal; }
+
+.vtabs { display: flex; gap: 2px; background: var(--bg3);
+         border: 1px solid var(--border); border-radius: var(--r); padding: 2px; flex-shrink: 0; }
+.vtab { padding: 5px 13px; border-radius: 5px; cursor: pointer;
+        font-size: .8rem; color: var(--muted); transition: .15s; white-space: nowrap; }
+.vtab.active { background: var(--accent); color: #fff; }
+
+.search-wrap { flex: 1; min-width: 120px; max-width: 340px; position: relative; }
+.search-wrap input { width: 100%; padding: 6px 10px 6px 26px;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r);
+  color: var(--text); font-size: .82rem; outline: none; transition: border .15s; }
+.search-wrap input:focus { border-color: var(--accent); }
+.si { position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: .72rem; pointer-events: none; }
+
+.sort-row { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+select.ss { padding: 5px 8px; background: var(--bg3); border: 1px solid var(--border);
+            border-radius: var(--r); color: var(--text); font-size: .8rem; cursor: pointer; outline: none; }
+.rev-btn { padding: 5px 9px; background: var(--bg3); border: 1px solid var(--border);
+           border-radius: var(--r); color: var(--muted); cursor: pointer; font-size: .8rem;
+           transition: .15s; user-select: none; }
+.rev-btn.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.rc { font-size: .78rem; color: var(--muted); white-space: nowrap; margin-left: auto; }
+
+/* ── Filter row ── */
+.frow {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  position: sticky; top: 48px; z-index: 20; /* must match .topbar height */
+}
+
+/* Dropdown filter button */
+.fdrop { position: relative; }
+.fdrop-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r); cursor: pointer; font-size: .8rem; color: var(--muted);
+  transition: .15s; user-select: none; white-space: nowrap;
+}
+.fdrop-btn:hover { color: var(--text); border-color: #444; }
+.fdrop-btn.has-sel { color: var(--text); border-color: var(--accent); }
+.fdrop-arrow { font-size: .6rem; transition: transform .15s; }
+.fdrop-btn.open .fdrop-arrow { transform: rotate(180deg); }
+
+.fdrop-panel {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 10px; z-index: 100; min-width: 220px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.fdrop-panel.open { display: block; }
+
+.fpanel-section { margin-bottom: 8px; }
+.fpanel-section:last-child { margin-bottom: 0; }
+.fpanel-label { font-size: .68rem; color: var(--muted); text-transform: uppercase;
+                letter-spacing: .06em; margin-bottom: 5px; }
+.fpanel-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+
+/* Rectangular chips inside panel */
+.rchip {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 10px;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 4px;
+  cursor: pointer; font-size: .78rem; color: var(--muted); transition: .12s;
+  white-space: nowrap; user-select: none;
+}
+.rchip:hover { border-color: #555; color: var(--text); }
+.rchip.on { color: var(--text); border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.07); }
+.rchip.on .cdot { box-shadow: 0 0 0 2px rgba(255,255,255,.3); }
+.cdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* Active filter summary pills next to buttons */
+.factive { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.fpill {
+  display: flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 4px; font-size: .72rem;
+  background: rgba(74,158,255,.15); border: 1px solid rgba(74,158,255,.3);
+  color: var(--accent); cursor: pointer;
+}
+.fpill:hover { background: rgba(74,158,255,.25); }
+
+/* ── Grids ── */
+.content { padding: 14px 16px; }
+
+.vgrid, .pgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.virtual-list {
+  position: relative;
+}
+.virtual-spacer {
+  width: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.virtual-window {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+@media (max-width: 1200px) { .vgrid,.pgrid { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 760px)  { .vgrid,.pgrid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 520px)  { .vgrid,.pgrid { grid-template-columns: 1fr; } }
+
+/* Video card */
+.vc { background: var(--bg2); border-radius: var(--r); border: 1px solid var(--border);
+      overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.vc:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+.vc:hover .vthumb img { transform: scale(1.05); }
+
+.vthumb { position: relative; aspect-ratio: 16/9; background: var(--bg3); overflow: hidden; }
+.vthumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.no-thumb { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 1.6rem; }
+.cstrip { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.dur { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,.8);
+       color: #fff; font-size: .67rem; padding: 1px 5px; border-radius: 3px; font-weight: 500; }
+
+.vbody { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.vtitle {
+  font-size: .84rem; font-weight: 500; line-height: 1.4;
+  height: calc(1.35em * 2);
+  overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.meta-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  height: 44px;
+  overflow: hidden;
+  align-items: flex-start;
+}
+.meta-bottom {
+  font-size: .72rem;
+  color: var(--muted);
+  height: 1.1em;
+  overflow: hidden;
+}
+.meta-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  max-width: 100%;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: .7rem;
+  line-height: 1;
+}
+.meta-tag-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.meta-tag-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.meta-tag-emoji { font-size: .78rem; line-height: 1; flex-shrink: 0; }
+
+/* Playlist card */
+.pc { background: var(--bg2); border-radius: var(--r); border: 1px solid var(--border);
+      overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.pc:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.pc:hover .pthumb img { transform: scale(1.04); }
+.pthumb { position: relative; aspect-ratio: 16/9; background: var(--bg3); overflow: hidden; }
+.pthumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+.pcol-strip { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.pbody { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.pname {
+  font-size: .84rem; font-weight: 500; line-height: 1.4;
+  height: calc(1.3em * 2);
+  overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+.pl-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 92px;
+  z-index: 15;
+  padding: 8px 0 10px;
+  background: linear-gradient(180deg, rgba(17,17,17,.96) 0%, rgba(17,17,17,.92) 100%);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  backdrop-filter: blur(6px);
+}
+.back-btn { padding: 4px 11px; background: var(--bg3); border: 1px solid var(--border);
+            border-radius: var(--r); color: var(--muted); cursor: pointer; font-size: .78rem; transition: .15s; }
+.back-btn:hover { color: var(--text); }
+
+.empty { padding: 50px 20px; text-align: center; color: var(--muted); }
+.search-divider {
+  grid-column: 1 / -1;
+  height: 0;
+  margin: 4px 0 2px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+</style>
+</head>
+<body class="locked">
+
+<div class="unlock-screen" id="unlock-screen">
+  <div class="unlock-card">
+    <div class="unlock-title">Закрытый Архив</div>
+    <div class="unlock-sub">
+      Данные хранятся в репозитории в зашифрованном виде.
+      Введите пароль, чтобы расшифровать каталог прямо в браузере.
+    </div>
+    <form class="unlock-form" id="unlock-form">
+      <input class="unlock-input" id="unlock-password" type="password" placeholder="Пароль" autocomplete="current-password" required>
+      <button class="unlock-btn" id="unlock-submit" type="submit">Открыть каталог</button>
+    </form>
+    <div class="unlock-status" id="unlock-status"></div>
+  </div>
+</div>
+
+<div id="app-shell" hidden>
+<!-- Topbar -->
+<div class="topbar">
+  <div class="logo">Везакс <em>Архив</em></div>
+
+  <div class="vtabs">
+    <div class="vtab active" id="tab-v" onclick="setMode('videos')">Видео</div>
+    <div class="vtab"       id="tab-p" onclick="setMode('playlists')">Плейлисты</div>
+    <div class="vtab"       id="tab-a" onclick="setMode('autonames')">Автоназвания (experimental)</div>
+  </div>
+
+  <div class="search-wrap">
+    <span class="si">🔍</span>
+    <input type="text" id="q" placeholder="Поиск…" oninput="onSearch()">
+  </div>
+
+  <div class="sort-row">
+    <select class="ss" id="sort" onchange="applyFilter()">
+      <option value="new" id="opt-new">Новые</option>
+      <option value="long" id="opt-long">Длинные</option>
+      <option value="az">Алфавитный</option>
+      <option value="plstart" id="opt-plstart" style="display:none">Дата начала</option>
+      <option value="plend"   id="opt-plend"   style="display:none">Дата конца</option>
+      <option value="plcount" id="opt-plcount" style="display:none">Кол-во серий</option>
+    </select>
+    <div class="rev-btn" id="rev-btn" onclick="toggleRev()" title="Обратная сортировка">⇅</div>
+  </div>
+
+  <div class="rc" id="rc"></div>
+</div>
+
+<!-- Filter row -->
+<div class="frow" id="frow">
+  <!-- Color dropdown -->
+  <div class="fdrop" id="fdrop-color">
+    <div class="fdrop-btn" id="fbtn-color" onclick="toggleDrop('color')">
+      Цвет <span class="fdrop-arrow">▼</span>
+    </div>
+    <div class="fdrop-panel" id="fpanel-color">
+      <div class="fpanel-section">
+        <div class="fpanel-chips" id="fchips-color"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type dropdown -->
+  <div class="fdrop" id="fdrop-type">
+    <div class="fdrop-btn" id="fbtn-type" onclick="toggleDrop('type')">
+      Тип <span class="fdrop-arrow">▼</span>
+    </div>
+    <div class="fdrop-panel" id="fpanel-type">
+      <div class="fpanel-section">
+        <div class="fpanel-chips" id="fchips-type"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active filter pills -->
+  <div class="factive" id="factive"></div>
+</div>
+
+<div class="content" id="content"></div>
+</div>
+<script>
+const DATA_URL = 'data.enc.json';
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+const CACHE_DB_NAME = 'vezaks-archive-cache';
+const CACHE_STORE_NAME = 'archives';
+const CACHE_META_KEY = 'vezaks-cache-meta';
+
+let videos = [];
+let playlists = {};
+let colors = [];
+let color_hex = {};
+let color_label = {};
+
+const LOAD_BATCH = 60;
+const VIRTUAL_ROWS_OVERSCAN = 4;
+const STATE_KEY = 'vezaks-ui-state-v1';
+
+let vidById = {};
+let allCats = [];
+
+let mode      = 'videos';
+let selColors = new Set();
+let selCats   = new Set();
+let sharedSearchQ = '';
+let autoSearchQ = '';
+let sortKey   = 'new';
+let sortRev   = false;
+let loadedCount = LOAD_BATCH;
+let filtered  = [];
+let plView    = null;
+let autoPlView = null;
+let autoPlaylists = buildAutoPlaylists();
+let pendingRestoreScrollY = null;
+let saveScrollTimer = null;
+let lastMeasuredCardHeight = 292;
+let renderTickPending = false;
+
+function resetState() {
+  mode = 'videos';
+  selColors = new Set();
+  selCats = new Set();
+  sharedSearchQ = '';
+  autoSearchQ = '';
+  sortKey = 'new';
+  sortRev = false;
+  loadedCount = LOAD_BATCH;
+  filtered = [];
+  plView = null;
+  autoPlView = null;
+}
+
+function hydrateSiteData(siteData) {
+  videos = siteData.videos || [];
+  playlists = siteData.playlists || {};
+  colors = siteData.colors || [];
+  color_hex = siteData.color_hex || {};
+  color_label = siteData.color_label || {};
+  vidById = {};
+  for (const v of videos) vidById[v.id] = v;
+  allCats = [...new Set(
+    Object.values(playlists).map(p => p.category).filter(Boolean)
+  )].sort((a, b) => a.localeCompare(b, 'ru'));
+  autoPlaylists = buildAutoPlaylists();
+}
+
+// For each video, find the "best" playlist label (one from discussions = has category)
+function bestPlLabel(v) {
+  const pids = v.playlists || [];
+  // 1st priority: playlist with a category assigned (from discussions)
+  const withCat = pids.find(pid => playlists[pid]?.category);
+  if (withCat) return playlists[withCat].name;
+  // 2nd: any playlist
+  if (pids.length > 0) return playlists[pids[0]]?.name || '';
+  return '';
+}
+
+function fmtTs(ts) {
+  if (!ts) return '?';
+  return new Date(ts * 1000).toLocaleDateString('ru-RU', {day:'2-digit',month:'2-digit',year:'2-digit'});
+}
+
+function isMonthlyStreamName(name) {
+  return /^СТРИМЫ(?:\s|$)/i.test(String(name || ''));
+}
+
+function videoSearchText(v) {
+  const parts = [v.title];
+  for (const pid of v.playlists || []) {
+    const pl = playlists[pid];
+    if (!pl) continue;
+    if (pl.name) parts.push(pl.name);
+    if (pl.category) parts.push(pl.category);
+  }
+  for (const pair of v.category_color_pairs || []) {
+    if (pair.category) parts.push(pair.category);
+  }
+  return parts.join(' ').toLowerCase();
+}
+
+function videoSearchGroup(v, q) {
+  if (!q) return 0;
+  if ((v.title || '').toLowerCase().includes(q)) return 0;
+  return videoSearchText(v).includes(q) ? 1 : -1;
+}
+
+function playlistSearchText(pl) {
+  const parts = [pl.name];
+  if (pl.category) parts.push(pl.category);
+  for (const vid of (pl.video_ids || []).map(id => vidById[id]).filter(Boolean)) {
+    if (vid.title) parts.push(vid.title);
+  }
+  return parts.join(' ').toLowerCase();
+}
+
+function playlistSearchGroup(pl, q) {
+  if (!q) return 0;
+  const primary = `${pl.name || ''} ${pl.category || ''}`.toLowerCase();
+  if (primary.includes(q)) return 0;
+  return playlistSearchText(pl).includes(q) ? 1 : -1;
+}
+
+function uniqueInOrder(items) {
+  const seen = new Set();
+  const out = [];
+  for (const item of items || []) {
+    if (!item || seen.has(item)) continue;
+    seen.add(item);
+    out.push(item);
+  }
+  return out;
+}
+
+function primaryColorFromIds(ids) {
+  const list = (ids || []).filter(Boolean);
+  return list.find(id => id !== 'black') || list[0] || 'black';
+}
+
+function uniqueTagPairs(items) {
+  const seen = new Set();
+  const out = [];
+  for (const item of items || []) {
+    const category = item?.category;
+    const color = item?.color;
+    if (!category || !color) continue;
+    const key = `${category}__${color}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({
+      category,
+      color,
+      hex: item.hex || color_hex[color] || '#777',
+    });
+  }
+  return out;
+}
+
+function normalizeAutoDisplayName(name) {
+  const raw = String(name || '').trim();
+  if (!raw) return raw;
+  if (/^[A-Z0-9'’ .:+-]+$/.test(raw)) return raw;
+  return raw.charAt(0).toUpperCase() + raw.slice(1);
+}
+
+function cleanAutoPlaylistSegment(segment) {
+  let name = String(segment || '').trim();
+  if (!name) return null;
+
+  let prev = '';
+  while (name !== prev) {
+    prev = name;
+    name = name.replace(/\s*\[[^\]]*\]\s*$/u, '').trim();
+    name = name.replace(/\s*\((?:ч|part|ep|эп)\s*\d+[^)]*\)\s*$/iu, '').trim();
+    name = name.replace(/\s*\((?:стрим\s+от|stream\s+from)[^)]*\)\s*$/iu, '').trim();
+  }
+
+  name = name.replace(/\s*\((?:пересмотр|rewatch)[^)]*\)\s*/iu, ' ').trim();
+  name = name.replace(/\s*[#№]\s*\d+(?:\s*[-–]\s*\d+(?:\.\d+)?)?\+?\s*$/u, '').trim();
+  name = name.replace(/\s*(?:\d+\s*[xх]\s*\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?\+?)(?:\s*(?:и|and|,)\s*(?:\d+\s*[xх]\s*\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?\+?))*\s*$/iu, '').trim();
+  name = name.replace(/\s*(?:ч|part|ep|эп)\s*\d+(?:\.\d+)?\s*$/iu, '').trim();
+  name = name.replace(/\s+\d+\s*[-–]\s*\d+\+?\s*$/u, '').trim();
+  name = name.replace(/\s+\d{2,4}\+?\s*$/u, '').trim();
+  name = name.replace(/([\p{L}])\d+(?:\s*[-–]\s*\d+(?:\.\d+)?)?\+?\s*$/u, '$1').trim();
+  name = name.replace(/\s+и\s*$/iu, '').trim();
+  name = name.replace(/[\s\-–:|]+$/u, '').trim();
+
+  if (!/[\p{L}]/u.test(name)) return null;
+  if (name.length < 2) return null;
+  return name;
+}
+
+function tokenizeAutoName(name) {
+  return String(name || '').match(/[\p{L}\p{N}][\p{L}\p{N}'’.+-]*/gu) || [];
+}
+
+function buildAutoCandidatesFromVariant(variant, altOrder) {
+  const tokens = tokenizeAutoName(variant);
+  const candidates = [];
+  for (let len = tokens.length; len >= 1; len--) {
+    candidates.push({
+      name: tokens.slice(0, len).join(' '),
+      altOrder,
+      offset: 0,
+      specificity: len,
+    });
+  }
+  for (let start = 1; start < tokens.length; start++) {
+    candidates.push({
+      name: tokens.slice(start).join(' '),
+      altOrder,
+      offset: start,
+      specificity: tokens.length - start,
+    });
+  }
+  return candidates.filter(c => /[\p{L}]/u.test(c.name));
+}
+
+function dedupeAutoCandidates(candidates) {
+  const best = new Map();
+  for (const candidate of candidates) {
+    const key = candidate.name.toLowerCase();
+    const prev = best.get(key);
+    if (
+      !prev ||
+      candidate.altOrder < prev.altOrder ||
+      (candidate.altOrder === prev.altOrder && candidate.offset < prev.offset) ||
+      (candidate.altOrder === prev.altOrder && candidate.offset === prev.offset && candidate.specificity > prev.specificity)
+    ) {
+      best.set(key, candidate);
+    }
+  }
+  return [...best.values()];
+}
+
+function extractAutoPlaylistSegments(title) {
+  const raw = String(title || '').trim();
+  if (!raw) return [];
+
+  const segments = raw.split(/\s+-\s+|\s+\+\s+|,\s+/u);
+  const out = [];
+
+  for (const segment of segments) {
+    const variants = String(segment)
+      .split(/\s*\/\s*/u)
+      .map(cleanAutoPlaylistSegment)
+      .filter(Boolean);
+    if (!variants.length) continue;
+
+    const candidates = dedupeAutoCandidates(
+      variants.flatMap((variant, altOrder) => buildAutoCandidatesFromVariant(variant, altOrder))
+    );
+    if (candidates.length) out.push(candidates);
+  }
+
+  return out;
+}
+
+function chooseAutoPlaylistName(candidates, freqMap) {
+  if (!candidates.length) return null;
+  const ranked = [...candidates].sort((a, b) => {
+    const freqDiff = (freqMap.get(b.name.toLowerCase()) || 0) - (freqMap.get(a.name.toLowerCase()) || 0);
+    if (freqDiff) return freqDiff;
+    const altDiff = a.altOrder - b.altOrder;
+    if (altDiff) return altDiff;
+    const offsetDiff = a.offset - b.offset;
+    if (offsetDiff) return offsetDiff;
+    const specificityDiff = b.specificity - a.specificity;
+    if (specificityDiff) return specificityDiff;
+    return b.name.length - a.name.length;
+  });
+  return normalizeAutoDisplayName(ranked[0].name);
+}
+
+function emptyAutoPlaylist() {
+  return {
+    id: '__undefined',
+    name: 'Неопределенные',
+    count: 0,
+    video_ids: [],
+    date_start: 0,
+    date_end: 0,
+    color_ids: ['black'],
+    color_hexes: [color_hex.black || '#222222'],
+    color: 'black',
+    hex: color_hex.black || '#222222',
+    category_ids: [],
+    category_color_pairs: [],
+    category: null,
+    undefined: true,
+  };
+}
+
+function miscAutoPlaylist() {
+  return {
+    id: '__misc',
+    name: 'Разное',
+    count: 0,
+    video_ids: [],
+    date_start: 0,
+    date_end: 0,
+    color_ids: ['black'],
+    color_hexes: [color_hex.black || '#222222'],
+    color: 'black',
+    hex: color_hex.black || '#222222',
+    category_ids: [],
+    category_color_pairs: [],
+    category: null,
+    undefined: false,
+    misc: true,
+  };
+}
+
+function mergeVideoIntoAutoPlaylist(group, video) {
+  if (!group.video_ids.includes(video.id)) {
+    group.video_ids.push(video.id);
+    group.count += 1;
+  }
+
+  const ts = Number(video.date_ts || 0);
+  if (ts) {
+    group.date_start = group.date_start ? Math.min(group.date_start, ts) : ts;
+    group.date_end = group.date_end ? Math.max(group.date_end, ts) : ts;
+  }
+
+  group.color_ids = uniqueInOrder([...(group.color_ids || []), ...((video.color_ids || [video.color]).filter(Boolean))]);
+  group.category_ids = uniqueInOrder([...(group.category_ids || []), ...((video.category_ids || []).filter(Boolean))]);
+  group.category_color_pairs = uniqueTagPairs([
+    ...(group.category_color_pairs || []),
+    ...((video.category_color_pairs || []).filter(Boolean)),
+  ]);
+}
+
+function buildAutoPlaylists() {
+  const videoSegments = videos.map(video => ({
+    video,
+    segments: extractAutoPlaylistSegments(video.title),
+  }));
+
+  const candidateFreq = new Map();
+  for (const item of videoSegments) {
+    const seen = new Set();
+    for (const segment of item.segments) {
+      for (const candidate of segment) {
+        const key = candidate.name.toLowerCase();
+        if (seen.has(key)) continue;
+        seen.add(key);
+        candidateFreq.set(key, (candidateFreq.get(key) || 0) + 1);
+      }
+    }
+  }
+
+  const groups = {
+    __undefined: emptyAutoPlaylist(),
+    __misc: miscAutoPlaylist(),
+  };
+
+  for (const item of videoSegments) {
+    const { video, segments } = item;
+    const names = uniqueInOrder(segments.map(segment => chooseAutoPlaylistName(segment, candidateFreq)).filter(Boolean));
+    const targetIds = names.length ? names.map(name => `auto:${name.toLowerCase()}`) : ['__undefined'];
+
+    targetIds.forEach((id, index) => {
+      const name = names[index] || 'Неопределенные';
+      if (!groups[id]) {
+        groups[id] = {
+          id,
+          name,
+          count: 0,
+          video_ids: [],
+          date_start: 0,
+          date_end: 0,
+          color_ids: [],
+          color_hexes: [],
+          color: 'black',
+          hex: color_hex.black || '#222222',
+          category_ids: [],
+          category_color_pairs: [],
+          category: null,
+          undefined: false,
+        };
+      }
+
+      const group = groups[id];
+      mergeVideoIntoAutoPlaylist(group, video);
+    });
+  }
+
+  for (const [id, group] of Object.entries(groups)) {
+    if (id === '__undefined' || id === '__misc') continue;
+    if (group.video_ids.length === 1) {
+      const video = vidById[group.video_ids[0]];
+      if (video) mergeVideoIntoAutoPlaylist(groups.__misc, video);
+      delete groups[id];
+    }
+  }
+
+  for (const group of Object.values(groups)) {
+    group.color_ids = uniqueInOrder(group.color_ids && group.color_ids.length ? group.color_ids : ['black']);
+    group.color_hexes = group.color_ids.map(id => color_hex[id] || '#333');
+    group.color = primaryColorFromIds(group.color_ids);
+    group.hex = color_hex[group.color] || '#333';
+    group.category = group.category_ids[0] || null;
+  }
+
+  return groups;
+}
+
+function activeSearchQ() {
+  return mode === 'autonames' ? autoSearchQ : sharedSearchQ;
+}
+
+function syncSearchInput() {
+  document.getElementById('q').value = activeSearchQ();
+}
+
+function syncModeTabs() {
+  document.getElementById('tab-v').classList.toggle('active', mode === 'videos');
+  document.getElementById('tab-p').classList.toggle('active', mode === 'playlists');
+  document.getElementById('tab-a').classList.toggle('active', mode === 'autonames');
+}
+
+function captureState() {
+  return {
+    mode,
+    selColors: [...selColors],
+    selCats: [...selCats],
+    sharedSearchQ,
+    autoSearchQ,
+    sortKey: document.getElementById('sort')?.value || sortKey,
+    sortRev,
+    plView,
+    autoPlView,
+    scrollY: window.scrollY || 0,
+  };
+}
+
+function saveState() {
+  try {
+    sessionStorage.setItem(STATE_KEY, JSON.stringify(captureState()));
+  } catch {}
+}
+
+function restoreState() {
+  try {
+    const raw = sessionStorage.getItem(STATE_KEY);
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    mode = state.mode || mode;
+    selColors = new Set(state.selColors || []);
+    selCats = new Set(state.selCats || []);
+    sharedSearchQ = state.sharedSearchQ || '';
+    autoSearchQ = state.autoSearchQ || '';
+    sortKey = state.sortKey || sortKey;
+    sortRev = Boolean(state.sortRev);
+    loadedCount = LOAD_BATCH;
+    plView = state.plView || null;
+    autoPlView = state.autoPlView || null;
+    pendingRestoreScrollY = Number(state.scrollY || 0);
+  } catch {}
+}
+
+function scheduleSaveState() {
+  if (saveScrollTimer) clearTimeout(saveScrollTimer);
+  saveScrollTimer = setTimeout(() => {
+    saveScrollTimer = null;
+    saveState();
+  }, 120);
+}
+
+function resetVisibleCount() {}
+
+function maybeLoadMore() {
+  const total = plView !== null
+    ? (playlists[plView]?.video_ids || []).length
+    : autoPlView !== null
+      ? (autoPlaylists[autoPlView]?.video_ids || []).length
+      : filtered.length;
+  if (loadedCount >= total) return;
+  if ((window.innerHeight + window.scrollY) < document.body.offsetHeight - 500) return;
+  loadedCount = Math.min(loadedCount + LOAD_BATCH, total);
+  if (plView !== null) renderPlView();
+  else if (autoPlView !== null) renderAutoPlView();
+  else render();
+  saveState();
+}
+
+function scheduleVirtualRender() {
+  if (activeSearchQ().trim()) return;
+  if (renderTickPending) return;
+  renderTickPending = true;
+  requestAnimationFrame(() => {
+    renderTickPending = false;
+    if (plView !== null) renderPlView();
+    else if (autoPlView !== null) renderAutoPlView();
+    else render();
+  });
+}
+
+function matchesVideoFilters(v) {
+  if (selColors.size > 0 && !(v.color_ids || [v.color]).some(c => selColors.has(c))) return false;
+  if (selCats.size > 0) {
+    const cats = v.category_ids || [];
+    if (selCats.has('__none') && cats.length === 0) return true;
+    if (!cats.some(c => selCats.has(c))) return false;
+  }
+  return true;
+}
+
+function matchesAutoPlaylistFilters(pl) {
+  if (selColors.size > 0 && !(pl.color_ids || [pl.color]).some(c => selColors.has(c))) return false;
+  if (selCats.size > 0) {
+    const cats = pl.category_ids || [];
+    if (selCats.has('__none') && cats.length === 0) return true;
+    if (!cats.some(c => selCats.has(c))) return false;
+  }
+  return true;
+}
+
+// ── Build filter panels ───────────────────────────────────────────────────────
+function buildFilters() {
+  // Color chips
+  const cc = document.getElementById('fchips-color');
+  let h = '';
+  h += rchip('c:__all',   null,             'Все',           'c:__all');
+  h += rchip('c:__rated', null,             'Все оценен.',   'c:__rated');
+  for (const c of colors) {
+    h += rchip('c:' + c.id, c.hex, color_label[c.id], 'c:' + c.id);
+  }
+  cc.innerHTML = h;
+
+  // Type chips
+  const tc = document.getElementById('fchips-type');
+  let ht = '';
+  ht += rchip('t:__all',   null, 'Все',      't:__all');
+  ht += rchip('t:__typed', null, 'С типом',  't:__typed');
+  for (const cat of allCats) {
+    if (cat === 'распределитель') continue;
+    ht += rchip('t:' + cat, null, cap(cat), 't:' + cat);
+  }
+  ht += rchip('t:__none', null, 'Без типа', 't:__none');
+  tc.innerHTML = ht;
+
+  updateChips();
+}
+
+function rchip(id, dotColor, label, dataId) {
+  const dot = dotColor ? `<div class="cdot" style="background:${dotColor}"></div>` : '';
+  return `<div class="rchip" id="rchip-${id}" onclick="chipClick('${dataId}')">${dot}${label}</div>`;
+}
+
+function updateChips() {
+  // Colors
+  setChip('c:__all',   selColors.size === 0);
+  // "Все оцен." is active only when every non-black color is selected (and nothing else)
+  const allRated = colors.filter(c => c.id !== 'black').map(c => c.id);
+  const isAllRated = allRated.length > 0
+    && allRated.every(c => selColors.has(c))
+    && selColors.size === allRated.length;
+  setChip('c:__rated', isAllRated);
+  for (const c of colors) setChip('c:' + c.id, selColors.has(c.id));
+
+  // Types
+  setChip('t:__all',   selCats.size === 0);
+  const validCats = allCats.filter(c => c !== 'распределитель');
+  const isTyped   = validCats.length > 0 && validCats.every(c => selCats.has(c)) && !selCats.has('__none');
+  setChip('t:__typed', isTyped);
+  for (const cat of allCats) setChip('t:' + cat, selCats.has(cat));
+  setChip('t:__none', selCats.has('__none'));
+
+  // Button active state
+  document.getElementById('fbtn-color').classList.toggle('has-sel', selColors.size > 0);
+  document.getElementById('fbtn-type').classList.toggle('has-sel', selCats.size > 0);
+
+  updateActivePills();
+}
+
+function setChip(id, on) {
+  document.getElementById('rchip-' + id)?.classList.toggle('on', on);
+}
+
+function chipClick(id) {
+  if (id === 'c:__all')   { selColors.clear(); }
+  else if (id === 'c:__rated') {
+    // Select all colors except black ("Не оценено")
+    selColors = new Set(colors.filter(c => c.id !== 'black').map(c => c.id));
+  }
+  else if (id.startsWith('c:')) {
+    const v = id.slice(2);
+    selColors.has(v) ? selColors.delete(v) : selColors.add(v);
+  }
+  else if (id === 't:__all')   { selCats.clear(); }
+  else if (id === 't:__typed') {
+    selCats = new Set(allCats.filter(c => c !== 'распределитель'));
+  }
+  else if (id.startsWith('t:')) {
+    const v = id.slice(2);
+    selCats.has(v) ? selCats.delete(v) : selCats.add(v);
+  }
+  resetVisibleCount();
+  updateChips();
+  applyFilter();
+}
+
+// Active pills shown in filter row
+function updateActivePills() {
+  const el = document.getElementById('factive');
+  const parts = [];
+  if (selColors.size > 0) {
+    for (const c of selColors) {
+      const hex = color_hex[c] || '#888';
+      const label = color_label[c] || c;
+      parts.push(`<div class="fpill" onclick="removeColor('${c}')">
+        <div class="cdot" style="background:${hex}"></div>${label} ✕
+      </div>`);
+    }
+  }
+  if (selCats.size > 0) {
+    for (const c of selCats) {
+      const label = c === '__none' ? 'Без типа' : cap(c);
+      parts.push(`<div class="fpill" onclick="removeCat('${c}')">${label} ✕</div>`);
+    }
+  }
+  el.innerHTML = parts.join('');
+}
+
+function removeColor(c) { selColors.delete(c); resetVisibleCount(); updateChips(); applyFilter(); }
+function removeCat(c)   { selCats.delete(c);   resetVisibleCount(); updateChips(); applyFilter(); }
+
+// ── Dropdowns ─────────────────────────────────────────────────────────────────
+let openDrop = null;
+
+function toggleDrop(which) {
+  if (openDrop === which) {
+    closeDrop();
+    return;
+  }
+  closeDrop();
+  openDrop = which;
+  document.getElementById('fpanel-' + which).classList.add('open');
+  document.getElementById('fbtn-' + which).classList.add('open');
+}
+
+function closeDrop() {
+  if (!openDrop) return;
+  document.getElementById('fpanel-' + openDrop)?.classList.remove('open');
+  document.getElementById('fbtn-' + openDrop)?.classList.remove('open');
+  openDrop = null;
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.fdrop')) closeDrop();
+});
+
+// ── Sort options ──────────────────────────────────────────────────────────────
+function updateSortOptions() {
+  const isPl = mode !== 'videos';
+  // Show/hide options that only apply to one mode
+  document.getElementById('opt-new').style.display     = isPl ? 'none' : '';
+  document.getElementById('opt-long').style.display    = isPl ? 'none' : '';
+  document.getElementById('opt-plstart').style.display = isPl ? '' : 'none';
+  document.getElementById('opt-plend').style.display   = isPl ? '' : 'none';
+  document.getElementById('opt-plcount').style.display = isPl ? '' : 'none';
+  // Reset to a valid default when switching modes
+  const sel = document.getElementById('sort');
+  if (!isPl && ['plstart','plend','plcount'].includes(sel.value)) sel.value = 'az';
+  if (mode === 'playlists' && ['new','long'].includes(sel.value)) sel.value = 'plend';
+  if (mode === 'autonames' && ['new','long'].includes(sel.value)) sel.value = 'plcount';
+}
+
+function toggleRev() {
+  sortRev = !sortRev;
+  document.getElementById('rev-btn').classList.toggle('on', sortRev);
+  applyFilter();
+  saveState();
+}
+
+// ── Filter + Sort ─────────────────────────────────────────────────────────────
+function applyFilter() {
+  sortKey = document.getElementById('sort').value;
+  const q = activeSearchQ().toLowerCase();
+
+  if (plView !== null) { renderPlView(); return; }
+  if (autoPlView !== null) { renderAutoPlView(); return; }
+
+  if (mode === 'videos') {
+    let pool = videos;
+    pool = pool.filter(matchesVideoFilters);
+    if (q) {
+      pool = pool
+        .map(v => ({ ...v, __searchGroup: videoSearchGroup(v, q) }))
+        .filter(v => v.__searchGroup >= 0);
+    }
+    filtered = sortVideos(pool);
+  } else if (mode === 'playlists') {
+    let pool = Object.values(playlists).filter(p =>
+      p.category !== 'распределитель' && p.name !== 'Добавленные'
+    );
+    if (selColors.size > 0) pool = pool.filter(p => selColors.has(p.color));
+    if (selCats.size > 0) {
+      pool = pool.filter(p => {
+        if (selCats.has('__none') && !p.category) return true;
+        return p.category && selCats.has(p.category);
+      });
+    }
+    if (q) {
+      pool = pool
+        .map(p => ({ ...p, __searchGroup: playlistSearchGroup(p, q) }))
+        .filter(p => p.__searchGroup >= 0);
+    }
+    filtered = sortPlaylists(pool);
+  } else {
+    let pool = Object.values(autoPlaylists);
+    pool = pool.filter(matchesAutoPlaylistFilters);
+    if (q) pool = pool.filter(p => p.name.toLowerCase().includes(q));
+    filtered = sortPlaylists(pool);
+  }
+  render();
+  saveState();
+}
+
+function sortVideos(pool) {
+  const a = [...pool];
+  if (sortKey === 'new')  a.sort((x,y) => y.date_ts - x.date_ts);
+  if (sortKey === 'long') a.sort((x,y) => y.duration_sec - x.duration_sec);
+  if (sortKey === 'az')   a.sort((x,y) => x.title.localeCompare(y.title,'ru'));
+  if (sortRev) a.reverse();
+  a.sort((x, y) => (x.__searchGroup || 0) - (y.__searchGroup || 0));
+  return a;
+}
+
+function sortPlaylists(pool) {
+  const a = [...pool];
+  if (sortKey === 'plstart') a.sort((x,y) => (y.date_start||0) - (x.date_start||0));
+  if (sortKey === 'plend')   a.sort((x,y) => (y.date_end||0) - (x.date_end||0));
+  if (sortKey === 'plcount') a.sort((x,y) => y.count - x.count);
+  if (sortKey === 'az')      a.sort((x,y) => x.name.localeCompare(y.name,'ru'));
+  if (sortKey === 'new')     a.sort((x,y) => (y.date_end||0) - (x.date_end||0));
+  if (sortRev) a.reverse();
+  a.sort((x, y) => (x.__searchGroup || 0) - (y.__searchGroup || 0));
+  return a;
+}
+
+function playlistDisplayTags(pl) {
+  if (!pl) return [];
+  const tags = [];
+  if (isMonthlyStreamName(pl.name)) {
+    tags.push({
+      text: 'Месяц',
+      color: pl.hex || '#777',
+      title: 'Месяц',
+      emoji: '🌙'
+    });
+    return tags;
+  }
+  if (pl.category && pl.category !== 'распределитель') {
+    tags.push({
+      text: cap(pl.category),
+      color: pl.hex || '#777',
+      title: `${cap(pl.category)} • ${color_label[pl.color] || 'Не оценено'}`
+    });
+  } else {
+    tags.push({
+      text: 'Без типа',
+      color: pl.hex || '#777',
+      title: `Без типа • ${color_label[pl.color] || 'Не оценено'}`
+    });
+  }
+  return tags;
+}
+
+function autoPlaylistDisplayTags(pl) {
+  const tags = [];
+  if (pl.undefined) {
+    tags.push({
+      text: 'Неопределенные',
+      color: '#666',
+      title: 'Название не удалось выделить автоматически',
+    });
+    return tags;
+  }
+
+  if (pl.misc) {
+    tags.push({
+      text: 'Разное',
+      color: '#666',
+      title: 'Одиночные автоназвания собраны в общий плейлист',
+    });
+    return tags;
+  }
+
+  const pairs = uniqueTagPairs(pl.category_color_pairs || []);
+  if (pairs.length) {
+    for (const pair of pairs) {
+      tags.push({
+        text: cap(pair.category),
+        color: pair.hex || pl.hex || '#777',
+        title: `${cap(pair.category)} • ${color_label[pair.color] || 'Не оценено'}`,
+      });
+    }
+  } else {
+    tags.push({
+      text: 'Без типа',
+      color: pl.hex || '#777',
+      title: 'У видео в этой группе нет определённого типа',
+    });
+  }
+  return tags;
+}
+
+function videoDisplayTags(v) {
+  const seen = new Set();
+  const tags = [];
+  for (const pid of v.playlists || []) {
+    const pl = playlists[pid];
+    if (!pl || String(pid).startsWith('-') || pl.category === 'распределитель') continue;
+    const key = `${pl.name}__${pl.color}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const isMonthlyStream = isMonthlyStreamName(pl.name);
+    tags.push({
+      text: pl.name,
+      color: pl.hex || '#777',
+      title: `${pl.name} • ${isMonthlyStream ? 'Месяц' : (color_label[pl.color] || 'Не оценено')}`,
+      emoji: isMonthlyStream ? '🌙' : null
+    });
+  }
+
+  if (!tags.length) {
+    const fallback = bestPlLabel(v);
+    if (fallback) {
+      tags.push({
+        text: fallback,
+        color: v.hex || '#777',
+        title: `${fallback} • ${color_label[v.color] || 'Не оценено'}`
+      });
+    }
+  }
+  return tags;
+}
+
+function tagHTML(tag) {
+  const marker = tag.emoji
+    ? `<span class="meta-tag-emoji">${tag.emoji}</span>`
+    : `<span class="meta-tag-dot" style="background:${tag.color || '#777'}"></span>`;
+  return `<div class="meta-tag" title="${esc(tag.title || tag.text)}">
+    <span class="meta-tag-text">${esc(tag.text)}</span>
+    ${marker}
+  </div>`;
+}
+
+function segmentedStrip(colors) {
+  const palette = (colors || []).filter(Boolean);
+  if (!palette.length) return '#333';
+  if (palette.length === 1) return palette[0];
+  const step = 100 / palette.length;
+  const stops = palette.map((color, index) => {
+    const start = (index * step).toFixed(4);
+    const end = ((index + 1) * step).toFixed(4);
+    return `${color} ${start}%, ${color} ${end}%`;
+  });
+  return `linear-gradient(90deg, ${stops.join(', ')})`;
+}
+
+function videoStripBackground(v) {
+  const ids = v.color_ids || (v.color ? [v.color] : []);
+  const hexes = v.color_hexes || (v.hex ? [v.hex] : []);
+  const palette = ids
+    .map((id, index) => ({ id, hex: hexes[index] || color_hex[id] || '#333' }))
+    .filter(item => item.hex);
+  const visible = palette.some(item => item.id !== 'black')
+    ? palette.filter(item => item.id !== 'black')
+    : palette;
+  return segmentedStrip(visible.map(item => item.hex));
+}
+
+function getGridColumns() {
+  const width = window.innerWidth;
+  if (width <= 520) return 1;
+  if (width <= 760) return 2;
+  if (width <= 1200) return 3;
+  return 4;
+}
+
+function buildVirtualGridHtml(items, renderer, cls, offsetPx = 0) {
+  const columns = getGridColumns();
+  const rowHeight = lastMeasuredCardHeight;
+  const rowCount = Math.max(1, Math.ceil(items.length / columns));
+  const contentTop = document.getElementById('content').getBoundingClientRect().top + window.scrollY + offsetPx;
+  const relativeScroll = Math.max(0, window.scrollY - contentTop);
+  const viewportHeight = window.innerHeight;
+  const firstRow = Math.max(0, Math.floor(relativeScroll / rowHeight) - VIRTUAL_ROWS_OVERSCAN);
+  const visibleRows = Math.ceil(viewportHeight / rowHeight) + VIRTUAL_ROWS_OVERSCAN * 2;
+  const lastRow = Math.min(rowCount, firstRow + visibleRows);
+  const startIndex = firstRow * columns;
+  const endIndex = Math.min(items.length, lastRow * columns);
+  const offsetY = firstRow * rowHeight;
+  const totalHeight = rowCount * rowHeight;
+  const slice = items.slice(startIndex, endIndex);
+
+  return `
+    <div class="virtual-list">
+      <div class="virtual-spacer" style="height:${totalHeight}px"></div>
+      <div class="virtual-window" style="transform:translateY(${offsetY}px)">
+        <div class="${cls}" id="grid">${slice.map(renderer).join('')}</div>
+      </div>
+    </div>
+  `;
+}
+
+function measureCardHeight() {
+  const sample = document.querySelector('.vc, .pc');
+  if (!sample) return;
+  const rect = sample.getBoundingClientRect();
+  if (rect.height > 40) lastMeasuredCardHeight = Math.ceil(rect.height + 14);
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  const total   = filtered.length;
+  const allN    = mode === 'videos'
+    ? videos.length
+    : mode === 'playlists'
+      ? Object.values(playlists).filter(p=>p.category!=='распределитель'&&p.name!=='Добавленные').length
+      : Object.values(autoPlaylists).length;
+
+  document.getElementById('rc').textContent = total === allN ? `${total}` : `${total} / ${allN}`;
+  const el = document.getElementById('content');
+
+  if (!filtered.length) { el.innerHTML='<div class="empty">Ничего не найдено</div>'; return; }
+
+  const isSearchMode = Boolean(activeSearchQ().trim());
+  if (isSearchMode) {
+    const cls = mode === 'videos' ? 'vgrid' : 'pgrid';
+    const cards = mode === 'videos'
+      ? renderSearchGroupedCards(filtered, vcardHTML, 'video')
+      : mode === 'playlists'
+        ? renderSearchGroupedCards(filtered, pcardHTML, 'playlist')
+        : filtered.map(autoPcardHTML);
+    el.innerHTML = `<div class="${cls}" id="grid">${cards.join('')}</div>`;
+  } else {
+    const loadedItems = filtered.slice(0, loadedCount);
+    const renderer = mode === 'videos' ? vcardHTML : mode === 'playlists' ? pcardHTML : autoPcardHTML;
+    const cls = mode === 'videos' ? 'vgrid' : 'pgrid';
+    el.innerHTML = buildVirtualGridHtml(loadedItems, renderer, cls, 0);
+  }
+  measureCardHeight();
+  finishRender(total, render);
+}
+
+function renderSearchGroupedCards(items, renderer, kind) {
+  const q = activeSearchQ().trim();
+  if (!q) return items.map(renderer);
+  const hasSecondary = items.some(item => item.__searchGroup === 1);
+  if (!hasSecondary) return items.map(renderer);
+  const out = [];
+  let lastGroup = null;
+  for (const item of items) {
+    if (item.__searchGroup !== lastGroup) {
+      if (item.__searchGroup > 0) out.push('<div class="search-divider"></div>');
+      lastGroup = item.__searchGroup;
+    }
+    out.push(renderer(item));
+  }
+  return out;
+}
+
+// ── Video card ────────────────────────────────────────────────────────────────
+function vcardHTML(v) {
+  const strip  = videoStripBackground(v);
+  const thumb  = v.thumbnail ? `<img src="${v.thumbnail}" loading="lazy" alt="">` : `<div class="no-thumb">🎬</div>`;
+  const tags   = videoDisplayTags(v);
+  const topRow = tags.length ? tags.map(tagHTML).join('') : '<div class="meta-bottom">Без франшизы</div>';
+  const dateRow = v.date ? esc(v.date) : '&nbsp;';
+
+  return `<div class="vc" data-url="${esc(v.url)}">
+    <div class="vthumb">
+      ${thumb}
+      <div class="cstrip" style="background:${strip}"></div>
+      ${v.duration ? `<div class="dur">${v.duration}</div>` : ''}
+    </div>
+    <div class="vbody">
+      <div class="vtitle" title="${esc(v.title)}">${esc(v.title)}</div>
+      <div class="meta-top">${topRow}</div>
+      <div class="meta-bottom">${dateRow}</div>
+    </div>
+  </div>`;
+}
+
+// ── Playlist card ─────────────────────────────────────────────────────────────
+function pcardHTML(pl) {
+  const hex   = pl.hex || '#555';
+  const thumb = pl.video_ids?.length ? (vidById[pl.video_ids[0]]?.thumbnail || '') : '';
+  const ds    = pl.date_start ? fmtTs(pl.date_start) : '';
+  const de    = pl.date_end   ? fmtTs(pl.date_end)   : '';
+  const dateStr = ds && de && ds !== de ? `${ds} — ${de}` : (ds || '');
+  const tags = playlistDisplayTags(pl);
+  const topRow = tags.length ? tags.map(tagHTML).join('') : '<div class="meta-bottom">Без типа</div>';
+  const dateRow = dateStr ? `${esc(dateStr)} · ${pl.count} видео` : `${pl.count} видео`;
+
+  return `<div class="pc" data-plid="${pl.id}">
+    <div class="pthumb">
+      ${thumb ? `<img src="${thumb}" loading="lazy" alt="">` : '<div class="no-thumb">📂</div>'}
+      <div class="pcol-strip" style="background:${hex}"></div>
+    </div>
+    <div class="pbody">
+      <div class="pname" title="${esc(pl.name)}">${esc(pl.name)}</div>
+      <div class="meta-top">${topRow}</div>
+      <div class="meta-bottom">${dateRow}</div>
+    </div>
+  </div>`;
+}
+
+function autoPcardHTML(pl) {
+  const hex = pl.hex || '#555';
+  const thumb = pl.video_ids?.length ? (vidById[pl.video_ids[0]]?.thumbnail || '') : '';
+  const ds = pl.date_start ? fmtTs(pl.date_start) : '';
+  const de = pl.date_end ? fmtTs(pl.date_end) : '';
+  const dateStr = ds && de && ds !== de ? `${ds} — ${de}` : (ds || '');
+  const tags = autoPlaylistDisplayTags(pl);
+  const topRow = tags.length ? tags.map(tagHTML).join('') : '<div class="meta-bottom">Автоназвание</div>';
+  const dateRow = dateStr ? `${esc(dateStr)} · ${pl.count} видео` : `${pl.count} видео`;
+
+  return `<div class="pc" data-autoid="${esc(pl.id)}">
+    <div class="pthumb">
+      ${thumb ? `<img src="${thumb}" loading="lazy" alt="">` : '<div class="no-thumb">🧪</div>'}
+      <div class="pcol-strip" style="background:${hex}"></div>
+    </div>
+    <div class="pbody">
+      <div class="pname" title="${esc(pl.name)}">${esc(pl.name)}</div>
+      <div class="meta-top">${topRow}</div>
+      <div class="meta-bottom">${dateRow}</div>
+    </div>
+  </div>`;
+}
+
+// ── Playlist drill-down ───────────────────────────────────────────────────────
+function openPl(pid) { plView = pid; autoPlView = null; resetVisibleCount(); renderPlView(); saveState(); }
+
+function renderPlView() {
+  const pl = playlists[plView];
+  if (!pl) return;
+  const q = sharedSearchQ.toLowerCase();
+  let vids = (pl.video_ids||[]).map(id => vidById[id]).filter(Boolean);
+  if (q) vids = vids.filter(v => v.title.toLowerCase().includes(q));
+  vids = sortVideos(vids);
+
+  const hex = pl.hex || '#555';
+  const ds  = pl.date_start ? fmtTs(pl.date_start) : '';
+  const de  = pl.date_end   ? fmtTs(pl.date_end)   : '';
+  const dr  = ds && de && ds !== de ? `${ds} — ${de}` : (ds || '');
+
+  document.getElementById('rc').textContent = `${vids.length} видео`;
+  const el = document.getElementById('content');
+  el.innerHTML = `
+    <div class="pl-header">
+      <div class="back-btn" onclick="closePl()">← Назад</div>
+      <div style="width:9px;height:9px;border-radius:50%;background:${hex}"></div>
+      <b style="font-size:.88rem">${esc(pl.name)}</b>
+      ${pl.category ? `<span style="font-size:.73rem;color:var(--muted)">${cap(pl.category)}</span>` : ''}
+      ${dr ? `<span style="font-size:.73rem;color:var(--muted)">${dr}</span>` : ''}
+    </div>
+    ${q ? `<div class="vgrid">${vids.map(vcardHTML).join('')}</div>` : buildVirtualGridHtml(vids.slice(0, loadedCount), vcardHTML, 'vgrid', 72)}`;
+  measureCardHeight();
+  finishRender(vids.length, renderPlView);
+  saveState();
+}
+
+function closePl() { plView = null; resetVisibleCount(); applyFilter(); saveState(); }
+
+function openAutoPl(pid) { autoPlView = pid; plView = null; resetVisibleCount(); renderAutoPlView(); saveState(); }
+
+function renderAutoPlView() {
+  const pl = autoPlaylists[autoPlView];
+  if (!pl) return;
+  const q = autoSearchQ.toLowerCase();
+  let vids = (pl.video_ids || []).map(id => vidById[id]).filter(Boolean);
+  if (q) vids = vids.filter(v => v.title.toLowerCase().includes(q));
+  vids = sortVideos(vids);
+
+  const hex = pl.hex || '#555';
+  const ds = pl.date_start ? fmtTs(pl.date_start) : '';
+  const de = pl.date_end ? fmtTs(pl.date_end) : '';
+  const dr = ds && de && ds !== de ? `${ds} — ${de}` : (ds || '');
+
+  document.getElementById('rc').textContent = `${vids.length} видео`;
+  const el = document.getElementById('content');
+  el.innerHTML = `
+    <div class="pl-header">
+      <div class="back-btn" onclick="closeAutoPl()">← Назад</div>
+      <div style="width:9px;height:9px;border-radius:50%;background:${hex}"></div>
+      <b style="font-size:.88rem">${esc(pl.name)}</b>
+      <span style="font-size:.73rem;color:var(--muted)">Автоназвание</span>
+      ${dr ? `<span style="font-size:.73rem;color:var(--muted)">${dr}</span>` : ''}
+    </div>
+    ${q ? `<div class="vgrid">${vids.map(vcardHTML).join('')}</div>` : buildVirtualGridHtml(vids.slice(0, loadedCount), vcardHTML, 'vgrid', 72)}`;
+  measureCardHeight();
+  finishRender(vids.length, renderAutoPlView);
+  saveState();
+}
+
+function closeAutoPl() { autoPlView = null; resetVisibleCount(); applyFilter(); saveState(); }
+
+// ── Event delegation ──────────────────────────────────────────────────────────
+document.getElementById('content').addEventListener('click', e => {
+  const vc = e.target.closest('.vc');
+  if (vc?.dataset.url) { window.open(vc.dataset.url, '_blank'); return; }
+  const pc = e.target.closest('.pc');
+  if (pc?.dataset.plid) { openPl(pc.dataset.plid); return; }
+  if (pc?.dataset.autoid) { openAutoPl(pc.dataset.autoid); }
+});
+
+// ── Mode ──────────────────────────────────────────────────────────────────────
+function setMode(m) {
+  mode=m; plView=null; autoPlView=null; resetVisibleCount();
+  syncModeTabs();
+  syncSearchInput();
+  updateSortOptions();
+  applyFilter();
+  saveState();
+}
+function onSearch() {
+  const value = document.getElementById('q').value;
+  if (mode === 'autonames') autoSearchQ = value;
+  else sharedSearchQ = value;
+  resetVisibleCount();
+  if (plView !== null) renderPlView();
+  else if (autoPlView !== null) renderAutoPlView();
+  else applyFilter();
+  saveState();
+}
+
+function finishRender(total, rerender) {
+  if (pendingRestoreScrollY > 0) {
+    const neededHeight = pendingRestoreScrollY + window.innerHeight;
+    if (document.body.offsetHeight < neededHeight && loadedCount < total) {
+      loadedCount = Math.min(loadedCount + LOAD_BATCH, total);
+      rerender();
+      return;
+    }
+    const target = pendingRestoreScrollY;
+    pendingRestoreScrollY = 0;
+    setTimeout(() => {
+      window.scrollTo({ top: target, behavior: 'instant' });
+    }, 0);
+  }
+}
+
+// ── Utils ─────────────────────────────────────────────────────────────────────
+function cap(s) { return s?s[0].toUpperCase()+s.slice(1):''; }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+
+function setUnlockStatus(message, kind = '') {
+  const el = document.getElementById('unlock-status');
+  el.textContent = message;
+  el.className = `unlock-status${kind ? ' ' + kind : ''}`;
+}
+
+function b64ToBytes(b64) {
+  const raw = atob(b64);
+  const out = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) out[i] = raw.charCodeAt(i);
+  return out;
+}
+
+function bytesToHex(bytes) {
+  return [...bytes].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+async function sha256Text(text) {
+  const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return bytesToHex(new Uint8Array(bytes));
+}
+
+function payloadCacheKey(payload) {
+  return [
+    payload.version || 1,
+    payload.iterations || 310000,
+    payload.salt || '',
+    payload.iv || '',
+    String((payload.ciphertext || '').length),
+  ].join(':');
+}
+
+function cacheEntryKey(cacheKey, passwordHash) {
+  return `${passwordHash}:${cacheKey}`;
+}
+
+function readCacheMeta() {
+  try {
+    return JSON.parse(sessionStorage.getItem(CACHE_META_KEY) || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function writeCacheMeta(cacheKey, passwordHash) {
+  sessionStorage.setItem(CACHE_META_KEY, JSON.stringify({ cacheKey, passwordHash }));
+}
+
+function clearCacheMeta() {
+  sessionStorage.removeItem(CACHE_META_KEY);
+}
+
+async function openCacheDb() {
+  return await new Promise((resolve, reject) => {
+    const req = indexedDB.open(CACHE_DB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(CACHE_STORE_NAME)) {
+        db.createObjectStore(CACHE_STORE_NAME);
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function cacheRead(cacheKey, passwordHash) {
+  try {
+    const db = await openCacheDb();
+    return await new Promise((resolve, reject) => {
+      const tx = db.transaction(CACHE_STORE_NAME, 'readonly');
+      const store = tx.objectStore(CACHE_STORE_NAME);
+      const req = store.get(cacheEntryKey(cacheKey, passwordHash));
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+  } catch {
+    return null;
+  }
+}
+
+async function cacheWrite(cacheKey, passwordHash, siteData) {
+  try {
+    const db = await openCacheDb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(CACHE_STORE_NAME, 'readwrite');
+      const store = tx.objectStore(CACHE_STORE_NAME);
+      store.put(siteData, cacheEntryKey(cacheKey, passwordHash));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error);
+    });
+    writeCacheMeta(cacheKey, passwordHash);
+  } catch {}
+}
+
+function showUnlockedSite(siteData, password) {
+  sessionStorage.setItem('vezaks-password', password);
+  hydrateSiteData(siteData);
+  initApp();
+  document.getElementById('unlock-screen').hidden = true;
+  document.getElementById('app-shell').hidden = false;
+  document.body.classList.remove('locked');
+}
+
+async function decryptPayload(payload, password) {
+  const salt = b64ToBytes(payload.salt);
+  const iv = b64ToBytes(payload.iv);
+  const ciphertext = b64ToBytes(payload.ciphertext);
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw',
+    new TextEncoder().encode(password),
+    'PBKDF2',
+    false,
+    ['deriveKey'],
+  );
+  const key = await crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt,
+      iterations: Number(payload.iterations || 310000),
+      hash: 'SHA-256',
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['decrypt'],
+  );
+  const plain = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    ciphertext,
+  );
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
+async function unlockArchive(password) {
+  const submit = document.getElementById('unlock-submit');
+  submit.disabled = true;
+  const passwordHash = await sha256Text(password);
+  const cachedMeta = readCacheMeta();
+  let usedCachedData = false;
+
+  if (cachedMeta?.passwordHash === passwordHash && cachedMeta.cacheKey) {
+    const cachedSiteData = await cacheRead(cachedMeta.cacheKey, passwordHash);
+    if (cachedSiteData) {
+      showUnlockedSite(cachedSiteData, password);
+      usedCachedData = true;
+    }
+  }
+
+  if (!usedCachedData) setUnlockStatus('Загрузка и расшифровка каталога…');
+  try {
+    const response = await fetch(DATA_URL, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const cacheKey = payloadCacheKey(payload);
+
+    if (usedCachedData && cachedMeta?.cacheKey === cacheKey) {
+      writeCacheMeta(cacheKey, passwordHash);
+      return;
+    }
+
+    const siteData = await decryptPayload(payload, password);
+    await cacheWrite(cacheKey, passwordHash, siteData);
+
+    if (!usedCachedData) {
+      showUnlockedSite(siteData, password);
+    }
+  } catch (error) {
+    console.error(error);
+    if (usedCachedData) return;
+    setUnlockStatus('Не удалось расшифровать каталог. Проверь пароль.', 'error');
+    sessionStorage.removeItem('vezaks-password');
+    clearCacheMeta();
+  } finally {
+    submit.disabled = false;
+  }
+}
+
+function initApp() {
+  resetState();
+  restoreState();
+  buildFilters();
+  syncModeTabs();
+  document.getElementById('sort').value = sortKey;
+  document.getElementById('rev-btn').classList.toggle('on', sortRev);
+  syncSearchInput();
+  updateSortOptions();
+  if (plView !== null) renderPlView();
+  else if (autoPlView !== null) renderAutoPlView();
+  else applyFilter();
+}
+
+document.getElementById('unlock-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const password = document.getElementById('unlock-password').value;
+  if (!password) return;
+  await unlockArchive(password);
+});
+
+const savedPassword = sessionStorage.getItem('vezaks-password');
+if (savedPassword) {
+  document.getElementById('unlock-password').value = savedPassword;
+  unlockArchive(savedPassword);
+}
+window.addEventListener('scroll', () => { scheduleSaveState(); maybeLoadMore(); scheduleVirtualRender(); }, { passive: true });
+window.addEventListener('beforeunload', saveState);
+</script>
+</body>
+</html>

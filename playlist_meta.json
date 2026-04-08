@@ -1,0 +1,1337 @@
+{
+  "1": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "2": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "3": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "4": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "5": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "6": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "7": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "8": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "9": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "10": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "11": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "12": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "13": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "14": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "15": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "16": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "17": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "18": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "19": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "20": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "21": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "22": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "23": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "24": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "25": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "26": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "27": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "30": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "31": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "32": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "33": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "34": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "35": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "36": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "37": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "38": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "39": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "40": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "41": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "42": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "43": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "44": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "45": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "46": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "47": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "48": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "49": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "50": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "51": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "52": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "53": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "55": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "56": {
+    "category": "топы",
+    "color": null,
+    "topic": "ТОПЫ"
+  },
+  "57": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "58": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "59": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "60": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "61": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "62": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "63": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "64": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "65": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "66": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "67": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "68": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "69": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "70": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "71": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "72": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "73": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "74": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "75": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "76": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "77": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "78": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "79": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "80": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "81": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "82": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "83": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "84": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "85": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "86": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "87": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "88": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "89": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "90": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "91": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "92": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "93": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "94": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "95": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "96": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "97": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "98": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "99": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "100": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "101": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "102": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "103": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "104": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "105": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "106": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "107": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "109": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "110": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "111": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "112": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "113": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "114": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "115": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "116": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "118": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "119": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "120": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "121": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "122": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "123": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "124": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "125": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "126": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "127": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "128": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "129": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "130": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "131": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "132": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "133": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "134": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "135": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "136": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "137": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "138": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "139": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "140": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "141": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "142": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "143": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "144": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "145": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "146": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "147": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "148": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "149": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "150": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "151": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "152": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "153": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "154": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "155": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "156": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "157": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "158": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "159": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "160": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "161": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "162": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "163": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "164": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "165": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "166": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "167": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "168": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "169": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "170": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "171": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "172": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "173": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "174": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "175": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "176": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "177": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "178": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "179": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "180": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "181": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "182": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "183": {
+    "category": "фильмы",
+    "color": "green",
+    "topic": "name_detected"
+  },
+  "184": {
+    "category": "фильмы",
+    "color": "blue",
+    "topic": "name_detected"
+  },
+  "185": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "186": {
+    "category": "фильмы",
+    "color": "yellow",
+    "topic": "name_detected"
+  },
+  "187": {
+    "category": "фильмы",
+    "color": "grey",
+    "topic": "name_detected"
+  },
+  "188": {
+    "category": "фильмы",
+    "color": "brown",
+    "topic": "name_detected"
+  },
+  "189": {
+    "category": "фильмы",
+    "color": "red",
+    "topic": "name_detected"
+  },
+  "190": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "192": {
+    "category": "фильмы",
+    "color": "grey",
+    "topic": "ФИЛЬМЫ СЕРЫЙ"
+  },
+  "193": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "194": {
+    "category": "распределитель",
+    "color": null,
+    "topic": "name_detected"
+  },
+  "196": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "197": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "198": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "199": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "200": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "201": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "202": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "203": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "204": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "205": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "207": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "208": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "209": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "210": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "211": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "212": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "213": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "215": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "223": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "225": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "226": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "227": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "228": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "229": {
+    "category": "игры",
+    "color": "brown",
+    "topic": "ИГРЫ КОРИЧНЕВЫЙ"
+  },
+  "230": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "233": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "235": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "237": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "238": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "242": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "246": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "247": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "248": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "250": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "252": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "253": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "254": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "260": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "261": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "262": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "264": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "265": {
+    "category": "игры",
+    "color": "brown",
+    "topic": "ИГРЫ КОРИЧНЕВЫЙ"
+  },
+  "266": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "267": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "276": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "278": {
+    "category": "топы",
+    "color": null,
+    "topic": "name_detected"
+  },
+  "279": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "281": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "282": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "286": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "287": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "289": {
+    "category": "топы",
+    "color": null,
+    "topic": "name_detected"
+  },
+  "290": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "293": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "294": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "295": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "298": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "301": {
+    "category": null,
+    "color": "blue",
+    "topic": "name_detected"
+  },
+  "302": {
+    "category": "топы",
+    "color": null,
+    "topic": "name_detected"
+  },
+  "305": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "308": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "312": {
+    "category": "игры",
+    "color": "blue",
+    "topic": "ИГРЫ СИНИЙ"
+  },
+  "313": {
+    "category": "игры",
+    "color": "green",
+    "topic": "ИГРЫ ЗЕЛЁНЫЙ"
+  },
+  "314": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "316": {
+    "category": "сериалы",
+    "color": "blue",
+    "topic": "СЕРИАЛЫ СИНИЙ"
+  },
+  "320": {
+    "category": "сериалы",
+    "color": "red",
+    "topic": "СЕРИАЛЫ КРАСНЫЙ"
+  },
+  "321": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "325": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "326": {
+    "category": "топы",
+    "color": null,
+    "topic": "name_detected"
+  },
+  "327": {
+    "category": "топы",
+    "color": null,
+    "topic": "name_detected"
+  },
+  "329": {
+    "category": "игры",
+    "color": "grey",
+    "topic": "ИГРЫ СЕРЫЙ"
+  },
+  "330": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "332": {
+    "category": "игры",
+    "color": "yellow",
+    "topic": "ИГРЫ ЖЁЛТЫЙ"
+  },
+  "334": {
+    "category": "сериалы",
+    "color": "grey",
+    "topic": "СЕРИАЛЫ СЕРЫЙ"
+  },
+  "335": {
+    "category": "игры",
+    "color": "grey",
+    "topic": "ИГРЫ СЕРЫЙ"
+  },
+  "336": {
+    "category": "сериалы",
+    "color": "brown",
+    "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
+  },
+  "338": {
+    "category": "игры",
+    "color": "grey",
+    "topic": "ИГРЫ СЕРЫЙ"
+  },
+  "342": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "345": {
+    "category": "сериалы",
+    "color": "green",
+    "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  }
+}
