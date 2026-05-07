@@ -1333,5 +1333,15 @@
     "category": "сериалы",
     "color": "green",
     "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
+  },
+  "349": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
+  },
+  "352": {
+    "category": "сериалы",
+    "color": "yellow",
+    "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
   }
 }
