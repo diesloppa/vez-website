@@ -884,50 +884,15 @@
     "color": "red",
     "topic": "СЕРИАЛЫ КРАСНЫЙ"
   },
-  "183": {
-    "category": "фильмы",
-    "color": "green",
-    "topic": "name_detected"
-  },
-  "184": {
-    "category": "фильмы",
-    "color": "blue",
-    "topic": "name_detected"
-  },
   "185": {
     "category": "сериалы",
     "color": "green",
     "topic": "СЕРИАЛЫ ЗЕЛЁНЫЙ"
   },
-  "186": {
-    "category": "фильмы",
-    "color": "yellow",
-    "topic": "name_detected"
-  },
-  "187": {
-    "category": "фильмы",
-    "color": "grey",
-    "topic": "name_detected"
-  },
-  "188": {
-    "category": "фильмы",
-    "color": "brown",
-    "topic": "name_detected"
-  },
-  "189": {
-    "category": "фильмы",
-    "color": "red",
-    "topic": "name_detected"
-  },
   "190": {
     "category": "сериалы",
     "color": "yellow",
     "topic": "СЕРИАЛЫ ЖЁЛТЫЙ"
-  },
-  "192": {
-    "category": "фильмы",
-    "color": "grey",
-    "topic": "ФИЛЬМЫ СЕРЫЙ"
   },
   "193": {
     "category": "сериалы",
@@ -937,7 +902,7 @@
   "194": {
     "category": "распределитель",
     "color": null,
-    "topic": "name_detected"
+    "topic": "РАСПРЕДЕЛИТЕЛЬ"
   },
   "196": {
     "category": "игры",
@@ -1167,7 +1132,7 @@
   "278": {
     "category": "топы",
     "color": null,
-    "topic": "name_detected"
+    "topic": "ТОПЫ"
   },
   "279": {
     "category": "сериалы",
@@ -1194,11 +1159,6 @@
     "color": "grey",
     "topic": "СЕРИАЛЫ СЕРЫЙ"
   },
-  "289": {
-    "category": "топы",
-    "color": null,
-    "topic": "name_detected"
-  },
   "290": {
     "category": "сериалы",
     "color": "yellow",
@@ -1223,16 +1183,6 @@
     "category": "сериалы",
     "color": "brown",
     "topic": "СЕРИАЛЫ КОРИЧНЕВЫЙ"
-  },
-  "301": {
-    "category": null,
-    "color": "blue",
-    "topic": "name_detected"
-  },
-  "302": {
-    "category": "топы",
-    "color": null,
-    "topic": "name_detected"
   },
   "305": {
     "category": "сериалы",
@@ -1282,12 +1232,7 @@
   "326": {
     "category": "топы",
     "color": null,
-    "topic": "name_detected"
-  },
-  "327": {
-    "category": "топы",
-    "color": null,
-    "topic": "name_detected"
+    "topic": "ТОПЫ"
   },
   "329": {
     "category": "игры",
